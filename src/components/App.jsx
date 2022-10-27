@@ -25,9 +25,9 @@ export const App = () => {
     setPage(page => page + 1);
   };
 
-  const fetchImages = async (query, pages) => {
+  const fetchImages = async (query, pages, controller) => {
     setLoading(() => true);
-    const response = await RequesPictures(query, pages);
+    const response = await RequesPictures(query, pages, controller);
     const pictures = response.data.hits;
     const aryyPictures = pictures.map(elem => {
       const picture = {
@@ -47,7 +47,11 @@ export const App = () => {
     setLoading(() => false);
   };
   useEffect(() => {
-    fetchImages(inputText, page);
+    const controller = new AbortController();
+    fetchImages(inputText, page, controller);
+    return () => {
+      controller.abort();
+    };
   }, [inputText, page]);
 
   const openModal = e => {
