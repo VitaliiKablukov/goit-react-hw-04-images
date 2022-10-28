@@ -5,7 +5,7 @@ import { Loader } from './Loader/Loader';
 import { Button } from './Button/Button';
 import { Modal } from './Modal/Modal';
 import { RequesPictures } from '../components/Services/ServicesApi';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 export const App = () => {
   const [picture, setPicture] = useState([]);
   const [inputText, setInputText] = useState('');
@@ -14,7 +14,7 @@ export const App = () => {
   const [totalHits, setTotalHits] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [modalPicture, setModalPicture] = useState('');
-
+  const isMounted = useRef(false);
   const onSubmit = data => {
     setPicture(() => []);
     setInputText(() => data);
@@ -26,6 +26,10 @@ export const App = () => {
   };
 
   useEffect(() => {
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
     const controller = new AbortController();
     const fetchImages = async (query, pages, controller) => {
       setLoading(() => true);
