@@ -25,31 +25,30 @@ export const App = () => {
     setPage(page => page + 1);
   };
 
-  const fetchImages = async (query, pages, controller) => {
-    setLoading(() => true);
-    const response = await RequesPictures(query, pages, controller);
-    console.log(response);
-    const pictures = response.data.hits;
-    const aryyPictures = pictures.map(elem => {
-      const picture = {
-        id: elem.id,
-        webformatURL: elem.webformatURL,
-        largeImageURL: elem.largeImageURL,
-        tags: elem.tags,
-      };
-      return picture;
-    });
-    if (!pictures.length) {
-      alert('Упс, по вашому запиту картинки не знайдені');
-    } else {
-      setPicture(picture => [...picture, ...aryyPictures]);
-      setTotalHits(() => response.data.totalHits);
-    }
-    setLoading(() => false);
-  };
   useEffect(() => {
-    console.log('click');
     const controller = new AbortController();
+    const fetchImages = async (query, pages, controller) => {
+      setLoading(() => true);
+      const response = await RequesPictures(query, pages, controller);
+      console.log(response);
+      const pictures = response.data.hits;
+      const aryyPictures = pictures.map(elem => {
+        const picture = {
+          id: elem.id,
+          webformatURL: elem.webformatURL,
+          largeImageURL: elem.largeImageURL,
+          tags: elem.tags,
+        };
+        return picture;
+      });
+      if (!pictures.length) {
+        alert('Упс, по вашому запиту картинки не знайдені');
+      } else {
+        setPicture(picture => [...picture, ...aryyPictures]);
+        setTotalHits(() => response.data.totalHits);
+      }
+      setLoading(() => false);
+    };
     fetchImages(inputText, page, controller);
     return () => {
       controller.abort();
