@@ -58,7 +58,7 @@ export const App = () => {
   const openModal = e => {
     const srcPicture = e.target.name;
     setModalPicture(() => srcPicture);
-    this.toggleModal();
+    toggleModal();
   };
   const toggleModal = () => {
     setShowModal(showModal => !showModal);
