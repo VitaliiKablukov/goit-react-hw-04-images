@@ -9,6 +9,6 @@ export const ImageGallery = ({ cardInfo, openModal }) => {
   );
 };
 ImageGallery.propTypes = {
-  cardInfo: PropTypes.func.isRequired,
-  opecardInfonModal: PropTypes.array.isRequired,
+  cardInfo: PropTypes.array.isRequired,
+  openModal: PropTypes.func.isRequired,
 };

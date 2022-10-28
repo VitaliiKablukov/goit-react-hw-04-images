@@ -3,17 +3,17 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 export const Modal = ({ onClose, picture }) => {
   useEffect(() => {
+    const closeMoodal = e => {
+      if (e.code === 'Escape') {
+        onClose();
+      }
+    };
     window.addEventListener('keydown', closeMoodal);
     return () => {
       window.removeEventListener('keydown', closeMoodal);
     };
-  }, []);
+  }, [onClose]);
 
-  const closeMoodal = e => {
-    if (e.code === 'Escape') {
-      onClose();
-    }
-  };
   const closeMoodalBackdrop = e => {
     if (e.currentTarget === e.target) {
       onClose();

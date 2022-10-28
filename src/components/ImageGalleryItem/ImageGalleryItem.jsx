@@ -8,7 +8,6 @@ export const ImageGalleryItem = ({ cardInfo }) => {
   ));
 };
 ImageGalleryItem.propTypes = {
-  cardInfo: PropTypes.array.isRequired,
   cardInfo: PropTypes.arrayOf(
     PropTypes.shape({
       webformatURL: PropTypes.string,

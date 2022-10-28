@@ -28,6 +28,7 @@ export const App = () => {
   const fetchImages = async (query, pages, controller) => {
     setLoading(() => true);
     const response = await RequesPictures(query, pages, controller);
+    console.log(response);
     const pictures = response.data.hits;
     const aryyPictures = pictures.map(elem => {
       const picture = {
@@ -47,6 +48,7 @@ export const App = () => {
     setLoading(() => false);
   };
   useEffect(() => {
+    console.log('click');
     const controller = new AbortController();
     fetchImages(inputText, page, controller);
     return () => {
